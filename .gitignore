@@ -1,0 +1,13 @@
+*.out
+
+*.o
+
+demo1210/htonl
+demo1210/inet_addr
+demo1210/inet_aton
+demo1210/inet_lnaof
+demo1210/inet_makeaddr
+demo1210/inet_netof
+demo1210/inet_network
+demo1210/inet_ntoa
+demo1210/mysocket
