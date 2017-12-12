@@ -1,7 +1,9 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <stdio.h>
-
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 int main () 
 {
@@ -33,7 +35,7 @@ int main ()
 		perror("getsockname");
 		exit(-1);		
 	}
-	printf("%s : %d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddrlen.sin_port));
+	printf("%s : %d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
 	return 0;
 }
