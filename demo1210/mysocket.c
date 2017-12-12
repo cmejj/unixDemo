@@ -12,7 +12,9 @@ int main () {
 	socklen_t test_addrlen;
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(8080);
-	addr.sin_addr.s_addr = inet_addr("192.168.199.255");
+
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+//	addr.sin_addr.s_addr = inet_addr("192.168.199.255");
 
 	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0) {
