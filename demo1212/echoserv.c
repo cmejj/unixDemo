@@ -1,6 +1,10 @@
 //echoserv.c
 #include <stdio.h>
-#include <sys/socket.h>
+#include <sys/socket.h>	//for socket etc.
+#include <netinet/in.h> //for sockaddr_in
+#include <arpa/inet.h> 	//for inet_addr etc.
+#include <stdlib.h>		//for exit
+#include <unistd.h> 	//for read write
 
 #define PORT 9002
 
@@ -32,7 +36,7 @@ int main () {
 	
 	char buffer[1024];
 
-	clisock = accept(sockfd, (struct addrsock*) &cliaddr, clisocklen);
+	clisock = accept(sockfd, (struct sockaddr*) &cliaddr, &clisocklen);
 	if (clisock <= 0) {
 		perror("accept");
 	}
@@ -45,7 +49,7 @@ int main () {
 	}
 		
 	buffer[len] = '\0';
-	printf("%s:%d  %s", inet_ntoa(cliaddr.sin_addr.s_addr), ntohs(cliaddr.sin_port), buffer);
+	printf("%s:%d  %s", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port), buffer);
 		
 	write(clisock, "hello world!", 13);
 
