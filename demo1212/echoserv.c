@@ -31,24 +31,23 @@ int main () {
 	int clisock;
 	
 	char buffer[1024];
-	while(1) {
-		clisock = accept(sockfd, (struct addrsock*) &cliaddr, clisocklen);
-		if (clisock <= 0) {
-			perror("accept");
-			continue;
-		}
 
-		//handle a connection
-		int len = read(clisock, buffer, 1024);
-		if (len > 1024) {
-			perror("read");
-		}
-		else {
-			buffer[len] = '\0';
-		}
-		
-		write(clisock, buffer, len);
+	clisock = accept(sockfd, (struct addrsock*) &cliaddr, clisocklen);
+	if (clisock <= 0) {
+		perror("accept");
 	}
+
+	//handle a connection
+	int len = read(clisock, buffer, 1024);
+	if (len > 1024) {
+		perror("read");
+		exit(-1);
+	}
+		
+	buffer[len] = '\0';
+	printf("%s:%d  %s", inet_ntoa(cliaddr.sin_addr.s_addr), ntohs(cliaddr.sin_port), buffer);
+		
+	write(clisock, "hello world!", 13);
 
 	return 0;
 }
