@@ -53,6 +53,14 @@ int main () {
 
 	printf("client addr:%s:%d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
+	ret = getsockname(clisock, (struct sockaddr*) &cliaddr, &clilen);
+	if (ret < 0) {
+		perror("getsockname");
+		exit(-1);
+	}
+
+	printf("client addr:%s:%d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+
 	handle(clisock);
 
 	return 0;
