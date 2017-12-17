@@ -27,6 +27,7 @@ int main () {
 	socklen_t len;
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = inet_addr("0.0.0.0");
+//	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = htons(PORT);
 
 	ret = bind(sockfd, (struct sockaddr*) &addr, sizeof(addr));
@@ -45,6 +46,7 @@ int main () {
 	socklen_t clilen;
 	int clisock;
 
+	clilen = sizeof(cliaddr);
 	clisock = accept(sockfd, (struct sockaddr*) &cliaddr, &clilen);
 	if (clisock < 0) {
 		perror("accept");
@@ -59,7 +61,7 @@ int main () {
 		exit(-1);
 	}
 
-	printf("client addr:%s:%d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+	printf("bind addr:%s:%d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
 	handle(clisock);
 
